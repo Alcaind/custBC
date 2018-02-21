@@ -1,0 +1,53 @@
+<div>
+    <div style="text-align: left;padding-left: 5px;">
+        <a href back-button type="button" class="btn btn-warning">
+            <span class="glyphicon glyphicon-chevron-left">
+                <span style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">Επιστροφή</span>
+            </span>
+        </a>
+    </div>
+    <form class="userForm" name="offerForm" novalidate>
+        <!-- PROMOTION -->
+        <div class="form-group" ng-class="{ 'has-error' : offerForm.promo.$invalid && !offerForm.promo.$pristine }">
+            <label class="required" for="promo">Κείμενο Promo<span class="form-required">*</span>:</label>
+            <div>
+                <input id="promo" name="promo" class="form-control" type="text" ng-model="item.promo" ng-minlength="5"
+                       ng-maxlength="30">
+                <p ng-show="offerForm.promo.$error.minlength" class="help-block">Promotion is too short.</p>
+                <p ng-show="offerForm.promo.$error.maxlength" class="help-block">Promotion is too long.</p>
+            </div>
+        </div>
+        <!-- ΣΧΟΛΙΟ -->
+        <div class="form-group" ng-class="{ 'has-error' : offerForm.comments.$invalid && !offerForm.comments.$pristine }">
+            <label class="required" for="comments">Comments<span class="form-required">*</span>:</label>
+            <textarea id="comments" name="comments" class="form-control" ng-model="item.comments"></textarea>
+        </div>
+        <!-- START PROMOTION -->
+        <div class="form-group" ng-class="{ 'has-error' : offerForm.from_tm.$invalid && !offerForm.from_tm.$pristine }">
+            <label class="required" for="promo">Start Offer Timestamp<span class="form-required">*</span>:</label>
+            <div>
+                <input id="from_tm" name="from_tm" class="form-control" type="text" ng-model="item.from_tm" ng-minlength="5"
+                       ng-maxlength="30">
+                <p ng-show="offerForm.from_tm.$error.minlength" class="help-block">Start Offer Timestamp is too short.</p>
+                <p ng-show="offerForm.from_tm.$error.maxlength" class="help-block">Start Offer Timestamp is too long.</p>
+            </div>
+        </div>
+        <!-- END PROMOTION -->
+        <div class="form-group" ng-class="{ 'has-error' : offerForm.to_tm.$invalid && !offerForm.to_tm.$pristine }">
+            <label class="required" for="to_tm">End Offer Timestamp<span class="form-required">*</span>:</label>
+            <div>
+                <input id="to_tm" name="to_tm" class="form-control" type="text" ng-model="item.to_tm" ng-minlength="5"
+                       ng-maxlength="30">
+                <p ng-show="offerForm.to_tm.$error.minlength" class="help-block">End Offer Timestamp is too short.</p>
+                <p ng-show="offerForm.to_tm.$error.maxlength" class="help-block">End Offer Timestamp is too long.</p>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" ng-click="updateOffer(item)" style="padding: 5px"
+                ng-if="item.id>0">Ανανέωση
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="saveOffer(item)" style="padding: 5px"
+                ng-if="item.fname && item.sname && !item.id">Αποθήκευση
+        </button>
+    </form>
+</div>
