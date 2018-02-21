@@ -11,7 +11,7 @@ angular.module('Offers', [
 
         AuthenticationService.CheckCredentials();
 
-        $scope.ctrl = makeController.mainController('/offers','offersTableConf')
+        $scope.ctrl = makeController.mainController('/offers','offersTableConf');
         $scope.ctrl.init();
     }])
 
