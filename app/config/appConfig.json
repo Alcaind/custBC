@@ -76,5 +76,65 @@
       "sorted": false,
       "filter": ""
     }
+  ],
+
+  "companyTableConf": [
+    {
+      "column": "id",
+      "title": "ID",
+      "visible": true
+    },
+    {
+      "column": "name",
+      "title": "Company Name",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "descr",
+      "title": "Company Description",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    }
+  ],
+
+  "offersTableConf": [
+    {
+      "column": "id",
+      "title": "ID",
+      "visible": true,
+      "filter": ""
+    },
+    {
+      "column": "promo",
+      "title": "Promotion Name",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "comments",
+      "title": "Promotion Comments",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "from_tm",
+      "title": "Start Offer Timestamp",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "to_tm",
+      "title": "End Offer Timpestamp",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    }
   ]
+
 }
