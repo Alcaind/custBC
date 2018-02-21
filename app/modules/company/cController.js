@@ -13,7 +13,6 @@ angular.module('Company', [
 
         $scope.ctrl = makeController.mainController('/company', 'companyTableConf');
         $scope.ctrl.init();
-
     }])
 
     .controller('CompanyProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {

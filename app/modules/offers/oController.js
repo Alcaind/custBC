@@ -13,6 +13,7 @@ angular.module('Offers', [
 
         $scope.ctrl = makeController.mainController('/offers','offersTableConf');
         $scope.ctrl.init();
+
     }])
 
     .controller('OfferProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {
