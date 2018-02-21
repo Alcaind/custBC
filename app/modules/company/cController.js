@@ -11,7 +11,7 @@ angular.module('Company', [
 
         AuthenticationService.CheckCredentials();
 
-        $scope.ctrl = makeController.mainController('/company', '');
+        $scope.ctrl = makeController.mainController('/company', 'companyTableConf');
         $scope.ctrl.init();
 
     }])
