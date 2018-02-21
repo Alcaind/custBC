@@ -135,6 +135,29 @@
       "sorted": false,
       "filter": ""
     }
+  ],
+
+  "hptypeTableConf": [
+    {
+      "column": "id",
+      "title": "ID",
+      "visible": true
+    },
+    {
+      "column": "name",
+      "title": "Company Name",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "descr",
+      "title": "Company Description",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    }
   ]
+
 
 }
