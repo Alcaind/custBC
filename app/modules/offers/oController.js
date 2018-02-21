@@ -26,7 +26,7 @@ angular.module('Offers', [
             api.apiCall('DELETE', $scope.baseURL + "/" + item.id, function (results) {
                 $scope.dp.splice($scope.dp.indexOf(item), 1);
                 $scope.item = {};
-                MakeModal.generalInfoModal('sm', 'Info', 'info', 'User Deleted', 1)
+                MakeModal.generalInfoModal('sm', 'Info', 'info', 'User Deleted', 1);
             });
         };
 
