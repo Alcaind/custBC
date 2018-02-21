@@ -30,7 +30,8 @@ angular.module('crSystem', [
     'Company',
     'MainComponents',
     'ApiModules',
-    'UsersCategories'
+    'UsersCategories',
+    'GlobalVarsSrvs'
 ])
 
     .config(['$locationProvider', '$routeProvider', '$httpProvider', 'jwtOptionsProvider', 'jwtInterceptorProvider',
