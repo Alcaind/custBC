@@ -7,7 +7,7 @@ angular.module('Company', [
     'Authentication',
     'GlobalVarsSrvs'
 ])
-    .controller('CompanyController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService) {
+    .controller('CompanyController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService, makeController, globalVarsSrv) {
 
         AuthenticationService.CheckCredentials();
 
