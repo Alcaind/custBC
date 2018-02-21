@@ -4,16 +4,44 @@ angular.module('Offers', [
     'MainComponents',
     'ui.bootstrap',
     'ApiModules',
-    'Authentication',
-    'GlobalVarsSrvs'
+    'Authentication'
 ])
-    .controller('OffersController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'GlobalVarsSrvs', 'makeController', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService, GlobalVarsSrvs, makeController) {
+    .controller('OffersController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService) {
 
         AuthenticationService.CheckCredentials();
 
-        $scope.ctrl = makeController.mainController('/offers','offersTableConf');
-        $scope.ctrl.init();
+        $scope.dp = [];
+        $scope.item = {};
+        $scope.method = '';
+        $scope.baseURL = 'api/public/offers';
 
+        $scope.getOffers = function () {
+            api.apiCall('GET', $scope.baseURL, function (results) {
+                $scope.dp = results.data;
+                $scope.totalItems = $scope.dp.length;
+            });
+        };
+
+        $scope.deleteOffer = function (item) {
+            api.apiCall('DELETE', $scope.baseURL + "/" + item.id, function (results) {
+                $scope.dp.splice($scope.dp.indexOf(item), 1);
+                $scope.item = {};
+                MakeModal.generalInfoModal('sm', 'Info', 'info', 'User Deleted', 1)
+            });
+        };
+
+        $scope.propertyName = 'promo';
+        $scope.reverse = true;
+        $scope.sorttable = orderBy($scope.dp, $scope.propertyName, $scope.reverse);
+
+        $scope.sortBy = function (propertyName) {
+            $scope.reverse = (propertyName !== null && $scope.propertyName === propertyName)
+                ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
+
+
+        $scope.getOffers();
     }])
 
     .controller('OfferProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {

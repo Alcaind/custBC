@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/dbschema" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/composer" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/container-interop" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/crell" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/doctrine" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/firebase" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/gofabian" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/illuminate" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/micheh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/monolog" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/neomerx" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/nesbot" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/assets/css" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/api_modules" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/authentication" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/company" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/dbServices" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/home" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/login" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/mainComponents" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/offers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/roles" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/users" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/modules/usersCategories" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/nikic" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/paragonie" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/pimple" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/psr" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/slim" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/symfony" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/tuupola" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/vlucas" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/vendor/willdurand" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/auth" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/bootstrap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/config" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/Controllers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/logs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/public" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/routes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/api/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/e2e-tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/app/bower_components" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
