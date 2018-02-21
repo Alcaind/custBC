@@ -6,7 +6,7 @@
         <div style="display: flex">
             <input type="text" ng-model="filter" class="form-control" placeholder="search"
                    style="padding: 5px; width: 100%">
-            <button type="button" class="btn btn-primary" ng-click="getUsers()"
+            <button type="button" class="btn btn-primary" ng-click="ctrl.getAll()"
                     style="min-width: 50px; border-radius: 0px;">
                 <span class="glyphicon glyphicon-cloud-download"></span>
             </button>
@@ -77,7 +77,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="user in dp.slice(((currentPage-1)*itemsPerPage),((currentPage)*itemsPerPage))|filter:filter|orderBy:propertyName:reverse"
+                <tr ng-repeat="user in ctrl.dp.slice(((currentPage-1)*itemsPerPage),((currentPage)*itemsPerPage))|filter:filter|orderBy:propertyName:reverse"
                     style="cursor: pointer" ng-class="{selected: user.id === item.id}">
                     <td>{{ user.id }}</td>
                     <td>{{ user.user}}</td>

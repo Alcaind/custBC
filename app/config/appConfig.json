@@ -7,14 +7,21 @@
       "visible": true
     },
     {
-      "column": "user",
-      "title": "Username",
-      "visible": true,
-      "sorted": false,
+    "column": "user",
+    "title": "Username",
+    "visible": true,
+    "sorted": false,
       "filter": ""
     },
     {
-      "column": "fname",
+    "column": "hash",
+    "title": "Password",
+    "visible": true,
+    "sorted": false,
+    "filter": ""
+    },
+    {
+    "column": "fname",
       "title": "Επώνυμο",
       "visible": true,
       "sorted": false,
@@ -35,36 +42,8 @@
       "filter": ""
     },
     {
-      "column": "em_main",
-      "title": "1ο Email",
-      "visible": true,
-      "sorted": false,
-      "filter": ""
-    },
-    {
-      "column": "em_sec",
-      "title": "2ο Email",
-      "visible": true,
-      "sorted": false,
-      "filter": ""
-    },
-    {
-      "column": "em_pant",
-      "title": "Email Uni",
-      "visible": true,
-      "sorted": false,
-      "filter": ""
-    },
-    {
-      "column": "cat_id",
-      "title": "Κατ.",
-      "visible": true,
-      "sorted": false,
-      "filter": ""
-    },
-    {
-      "column": "tm_id",
-      "title": "Τμήμα",
+      "column": "email",
+      "title": "Email",
       "visible": true,
       "sorted": false,
       "filter": ""
@@ -104,8 +83,7 @@
     {
       "column": "id",
       "title": "ID",
-      "visible": true,
-      "filter": ""
+      "visible": true
     },
     {
       "column": "promo",
@@ -137,18 +115,11 @@
     }
   ],
 
-  "hptypeTableConf": [
+  "hpTypeTableConf": [
     {
       "column": "id",
       "title": "ID",
       "visible": true
-    },
-    {
-      "column": "name",
-      "title": "Company Name",
-      "visible": true,
-      "sorted": false,
-      "filter": ""
     },
     {
       "column": "descr",
@@ -157,7 +128,40 @@
       "sorted": false,
       "filter": ""
     }
-  ]
+  ],
 
+  "hotSpotsTableConf": [
+    {
+      "column": "id",
+      "title": "ID",
+      "visible": true
+    },
+    {
+      "column": "company_id",
+      "title": "Company ID",
+      "visible": true
+    },
+    {
+      "column": "descr",
+      "title": "Hot Spot",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "lat",
+      "title": "Latitude",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    },
+    {
+      "column": "lon",
+      "title": "Longitude",
+      "visible": true,
+      "sorted": false,
+      "filter": ""
+    }
+  ]
 
 }
