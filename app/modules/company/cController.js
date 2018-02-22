@@ -45,7 +45,7 @@ angular.module('Company', [
             api.apiCall('PUT', $scope.baseURL + "/" + item.id, function (results) {
                 MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Updated', 1);
                 history.back();
-            }, undefined, item)
+            }, undefined, item);
 
         };
 
@@ -53,8 +53,9 @@ angular.module('Company', [
             api.apiCall('POST', $scope.baseURL, function (results) {
                 MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Created', 1);
                 history.back();
-            }, undefined, item)
+            }, undefined, item);
         };
+
     }])
 
     .component('companyProfile', {

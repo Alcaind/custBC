@@ -15,54 +15,12 @@ angular.module('Offers', [
         $scope.ctrl.init();
     }])
 
-    .controller('OfferProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {
+    .controller('OfferProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, $routeParams, api, MakeModal, AuthenticationService,  makeController, globalVarsSrv) {
         AuthenticationService.CheckCredentials();
-        $scope.tms = {};
-        $scope.ucategories = {};
-        $scope.baseURL = 'api/public/offers';
 
-        /*api.apiCall('GET', 'api/public/tms', function (results) {
-            $scope.tms = results.data;
-        });*/
+        $scope.ctrl = makeController.profileController('/offers', 'offersTableConf');
+        $scope.ctrl.init();
 
-        /*api.apiCall('GET', 'api/public/userscategories', function (results) {
-            $scope.ucategories = results.data;
-        });*/
-
-        if (!$routeParams.offerId) {
-            $scope.item = {
-                /*tm_id: "",
-                fname: "",
-                sname: "",
-                phone: "",
-                em_main: "",
-                em_sec: "",
-                em_pant: "",
-                cat_id: "",
-                comments: "",
-                user: "",
-                hash: ""*/
-            };
-        } else {
-            api.apiCall('GET', $scope.baseURL + "/" + $routeParams.offerId, function (results) {
-                $scope.item = results.data;
-            });
-        }
-
-        $scope.updateOffer = function (item) {
-            api.apiCall('PUT', $scope.baseURL + "/" + item.id, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Updated', 1);
-                history.back();
-            }, undefined, item)
-
-        };
-
-        $scope.saveOffer = function (item) {
-            api.apiCall('POST', $scope.baseURL, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Created', 1);
-                history.back();
-            }, undefined, item)
-        };
     }])
 
     .component('offersProfile', {

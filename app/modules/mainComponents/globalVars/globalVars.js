@@ -1,6 +1,6 @@
 'use strict';
 
-var globalVars = angular.module('GlobalVarsSrvs', ['ApiModules']);
+var globalVars = angular.module('GlobalVarsSrvs', ['ApiModules', 'MainComponents']);
 
 globalVars.factory('globalVarsSrv', ['$http', function ($http) {
     var globalVariables = {};
@@ -44,7 +44,7 @@ globalVars.factory('globalVarsSrv', ['$http', function ($http) {
     return glbSrv;
 }]);
 
-globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '$routeParams', function (globalVarsSrv, api, orderBy, $routeParams) {
+globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '$routeParams', 'MakeModal', function (globalVarsSrv, api, orderBy, $routeParams, MakeModal) {
     var makeController = {};
 
     function mainController(url, table) {
@@ -93,7 +93,43 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
         };
 
         return ctrl;
-    };
+    }
+
+    function profileController(url, table) {
+        var ctrl = {
+            item: {},
+            baseURL: globalVarsSrv.getGlobalVar('appUrl') + url,
+            tableColumns: globalVarsSrv.getGlobalVar(table)
+        };
+
+        ctrl.init = function(){
+            if (!$routeParams.id) {
+                ctrl.tableColumns.map(function (tableColumn) {
+                    ctrl.item[tableColumn.column] = '';
+                });
+            }else{
+                api.apiCall('GET', ctrl.baseURL + "/" + $routeParams.id, function (results) {
+                    ctrl.item = results.data;
+                });
+            }
+        }
+
+        ctrl.save = function (item) {
+            api.apiCall('POST', ctrl.baseURL, function (results) {
+                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'NEW Item Created', 1);
+                history.back();
+            }, undefined, item)
+        };
+
+        ctrl.update = function (item) {
+            api.apiCall('PUT', ctrl.baseURL + "/" + item.id, function (results) {
+                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Updated', 1);
+                history.back();
+            }, undefined, item)
+        };
+
+        return ctrl;
+    }
 
     function n2nController(url, table) {
         var ctrl = {
@@ -171,6 +207,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
 
     makeController = {
         mainController: mainController,
+        profileController: profileController,
         n2nController: n2nController
     };
 

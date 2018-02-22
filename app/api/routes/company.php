@@ -70,7 +70,7 @@ $app->delete('/company/{id}', function ($request, $response, $args) {
         // do task when error
         return $response->withStatus(404)->getBody()->write($e->getMessage());
     }
-    return $response->withStatus(201)->getBody()->write($users->toJson());
+    return $response->withStatus(201)->getBody()->write($company->toJson());
 });
 
 /*

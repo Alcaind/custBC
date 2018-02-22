@@ -49,27 +49,7 @@
                               ng-class="{reverse: reverse}"></span>
                     </th>
                     <th>
-                        <button class="btn btn-link" ng-click="sortBy('em_sec')">2ο Email</button>
-                        <span class="sortorder" ng-show="propertyName === 'em_sec'"
-                              ng-class="{reverse: reverse}"></span>
-                    </th>
-                    <th>
-                        <button class="btn btn-link" ng-click="sortBy('em_pant')">Email Παντείου</button>
-                        <span class="sortorder" ng-show="propertyName === 'em_pant'"
-                              ng-class="{reverse: reverse}"></span>
-                    </th>
-                    <th>
-                        <button class="btn btn-link" ng-click="sortBy('ucategories.descr')">Κατηγορία</button>
-                        <span class="sortorder" ng-show="propertyName === 'ucategories.descr'"
-                              ng-class="{reverse: reverse}"></span>
-                    </th>
-                    <th>
-                        <button class="btn btn-link" ng-click="sortBy('tm.title')">Τμήμα</button>
-                        <span class="sortorder" ng-show="propertyName === 'tm.title'"
-                              ng-class="{reverse: reverse}"></span>
-                    </th>
-                    <th>
-                        <button class="btn btn-link" ng-click="sortBy('comments')">Σχόλια</button>
+                        <button class="btn btn-link" ng-click="sortBy('comments')">Comments</button>
                         <span class="sortorder" ng-show="propertyName === 'comments'"
                               ng-class="{reverse: reverse}"></span>
                     </th>
@@ -84,11 +64,7 @@
                     <td>{{ user.fname }}</td>
                     <td>{{ user.sname}}</td>
                     <td>{{ user.phone}}</td>
-                    <td>{{ user.em_main}}</td>
-                    <td>{{ user.em_sec}}</td>
-                    <td>{{ user.em_pant}}</td>
-                    <td>{{ user.ucategories.descr}}</td>
-                    <td>{{ user.tm.title }}</td>
+                    <td>{{ user.email}}</td>
                     <td><textarea disabled>{{ user.comments}}</textarea></td>
                     <!--<td>{{user.hash}}</td>-->
                     <td>

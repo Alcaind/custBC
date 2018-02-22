@@ -102,9 +102,9 @@ angular.module('crSystem', [
         })
         .when('/offers/create', {
             title: 'offers create',
-            template: '<offer-profile></offer-profile>'
+            template: '<offers-profile></offers-profile>'
         })
-        .when('/offers/:offerId', {
+        .when('/offers/:id', {
             title: 'offers',
             template: '<offers-profile></offers-profile>'
         })

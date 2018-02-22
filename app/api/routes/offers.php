@@ -22,8 +22,27 @@ $app->get('/offers/{id}', function (Request $request, Response $response, $args)
     $id = $args['id'];
     try {
         $offers = \App\Models\Offers::with([])->find($id);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($offers->toJson());
+});
+
+$app->put('/offers/{id}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $data = $request->getParsedBody();
+    print_r($data);
+    try {
+        $offers = \App\Models\Offers::find($id);
+        $offers->comments = $data['comments'] ?: $offers->comments;
+        $offers->from_tm = $data['from_tm'] ?: $offers->from_tm;
+        $offers->promo = $data['promo'] ?: $offers->promo;
+        $offers->to_tm = $data['to_tm'] ?: $offers->to_tm;
+        $offers->save();
     } catch (\Exception $e) {
-        // do task when error
         return $response->withStatus(404)->getBody()->write($e->getMessage());
     }
     return $response->getBody()->write($offers->toJson());
@@ -35,14 +54,14 @@ $app->post('/offers', function (Request $request, Response $response) {
     try {
         $offers = new \App\Models\Offers();
         $offers->promo = $data['promo'];
-        $offers->commments = $data['commments'];
+        $offers->comments = $data['comments'];
         $offers->from_tm = $data['from_tm'];
         $offers->to_tm = $data['to_tm'];
         $offers->save();
     } catch (PDOException $e) {
         $nr = $response->withStatus(404);
         $error = new ApiError();
-        $error->setData($e->getCode(), $e->getMessage('Error from POST'));
+        $error->setData($e->getCode(), $e->getMessage());
         return $nr->write($error->toJson());
     }
     return $response->withStatus(201)->getBody()->write($offers->toJson());

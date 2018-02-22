@@ -1,44 +1,55 @@
 'use strict';
 
-angular.module('Users', [
+angular.module('Offers', [
     'MainComponents',
     'ui.bootstrap',
     'ApiModules',
     'Authentication',
     'GlobalVarsSrvs'
 ])
-    .controller('UsersController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'globalVarsSrv', 'makeController', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService, globalVarsSrv, makeController) {
+    .controller('OffersController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService, makeController, globalVarsSrv) {
 
         AuthenticationService.CheckCredentials();
 
-        $scope.ctrl = makeController.mainController('/users', 'usersTableConf');
+        $scope.ctrl = makeController.mainController('/offers', 'offersTableConf');
         $scope.ctrl.init();
     }])
 
-    .controller('UserProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {
+    .controller('OfferProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {
         AuthenticationService.CheckCredentials();
         $scope.tms = {};
         $scope.ucategories = {};
-        $scope.baseURL = 'api/public/users';
+        $scope.baseURL = 'api/public/offers';
 
+        /*api.apiCall('GET', 'api/public/tms', function (results) {
+            $scope.tms = results.data;
+        });*/
 
-        if (!$routeParams.userId) {
+        /*api.apiCall('GET', 'api/public/userscategories', function (results) {
+            $scope.ucategories = results.data;
+        });*/
+
+        if (!$routeParams.offerId) {
             $scope.item = {
+                /*tm_id: "",
                 fname: "",
                 sname: "",
                 phone: "",
-                email: "",
+                em_main: "",
+                em_sec: "",
+                em_pant: "",
+                cat_id: "",
                 comments: "",
                 user: "",
-                hash: ""
+                hash: ""*/
             };
         } else {
-            api.apiCall('GET', $scope.baseURL + "/" + $routeParams.userId, function (results) {
+            api.apiCall('GET', $scope.baseURL + "/" + $routeParams.offerId, function (results) {
                 $scope.item = results.data;
             });
         }
 
-        $scope.updateUser = function (item) {
+        $scope.updateOffer = function (item) {
             api.apiCall('PUT', $scope.baseURL + "/" + item.id, function (results) {
                 MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Updated', 1);
                 history.back();
@@ -46,7 +57,7 @@ angular.module('Users', [
 
         };
 
-        $scope.saveUser = function (item) {
+        $scope.saveOffer = function (item) {
             api.apiCall('POST', $scope.baseURL, function (results) {
                 MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Created', 1);
                 history.back();
@@ -54,14 +65,14 @@ angular.module('Users', [
         };
     }])
 
-    .component('usersProfile', {
+    .component('offersProfile', {
         restrict: 'EA',
-        templateUrl: 'modules/users/uviews/profile.html',
+        templateUrl: 'modules/offers/ofviews/profile.html',
         scope: {
             //itemId: '=itemId',
             method: '=method'
         },
-        controller: 'UserProfileController'
+        controller: 'OfferProfileController'
     })
 
     .directive('pwCheck', [function () {
