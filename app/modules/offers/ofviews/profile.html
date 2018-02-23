@@ -17,7 +17,7 @@
                 <p ng-show="offerForm.promo.$error.maxlength" class="help-block">Promotion is too long.</p>
             </div>
         </div>
-        <!-- ΣΧΟΛΙΟ -->
+        <!-- COMMENT -->
         <div class="form-group" ng-class="{ 'has-error' : offerForm.comments.$invalid && !offerForm.comments.$pristine }">
             <label class="required" for="comments">Comments<span class="form-required">*</span>:</label>
             <textarea id="comments" name="comments" class="form-control" ng-model="ctrl.item.comments"></textarea>

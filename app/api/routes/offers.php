@@ -67,6 +67,18 @@ $app->post('/offers', function (Request $request, Response $response) {
     return $response->withStatus(201)->getBody()->write($offers->toJson());
 });
 
+$app->delete('/offers/{id}', function ($request, $response, $args) {
+    $id = $args['id'];
+    try {
+        $offers= \App\Models\Offers::find($id);
+        $offers->delete();
+    } catch (\Exception $e) {
+        // do task when error
+        return $response->withStatus(404)->getBody()->write($e->getMessage());
+    }
+    return $response->withStatus(201)->getBody()->write($offers->toJson());
+});
+
 /*
 $app->get('/users/{id}', function (Request $request, Response $response, $args) {
     header("Content-Type: application/json");

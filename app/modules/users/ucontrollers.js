@@ -15,43 +15,11 @@ angular.module('Users', [
         $scope.ctrl.init();
     }])
 
-    .controller('UserProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', function ($scope, $routeParams, api, MakeModal, AuthenticationService) {
+    .controller('UserProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', 'makeController', 'GlobalVarsSrvs', function ($scope, $routeParams, api, MakeModal, AuthenticationService, makeController, globalVarsSrv) {
         AuthenticationService.CheckCredentials();
-        $scope.tms = {};
-        $scope.ucategories = {};
-        $scope.baseURL = 'api/public/users';
 
-
-        if (!$routeParams.userId) {
-            $scope.item = {
-                fname: "",
-                sname: "",
-                phone: "",
-                email: "",
-                comments: "",
-                user: "",
-                hash: ""
-            };
-        } else {
-            api.apiCall('GET', $scope.baseURL + "/" + $routeParams.userId, function (results) {
-                $scope.item = results.data;
-            });
-        }
-
-        $scope.updateUser = function (item) {
-            api.apiCall('PUT', $scope.baseURL + "/" + item.id, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Updated', 1);
-                history.back();
-            }, undefined, item)
-
-        };
-
-        $scope.saveUser = function (item) {
-            api.apiCall('POST', $scope.baseURL, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Created', 1);
-                history.back();
-            }, undefined, item)
-        };
+        $scope.ctrl = makeController.profileController('/users', 'usersTableConf');
+        $scope.ctrl.init();
     }])
 
     .component('usersProfile', {

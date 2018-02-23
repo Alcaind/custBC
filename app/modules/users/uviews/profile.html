@@ -11,7 +11,7 @@
         <div class="form-group" ng-class="{ 'has-error' : userForm.uname.$invalid && !userForm.uname.$pristine }">
             <label class="required" for="uname">Username<span class="form-required">*</span>:</label>
             <div>
-                <input id="uname" name="uname" class="form-control" type="text" ng-model="item.user" ng-minlength="5"
+                <input id="uname" name="uname" class="form-control" type="text" ng-model="ctrl.item.user" ng-minlength="5"
                        ng-maxlength="30">
                 <p ng-show="userForm.uname.$error.minlength" class="help-block">Username is too short.</p>
                 <p ng-show="userForm.uname.$error.maxlength" class="help-block">Username is too long.</p>
@@ -21,7 +21,7 @@
         <div class="form-group">
             <div>
                 <label class="required" for="pw1">Set a password<span class="form-required">*</span>:</label>
-                <input id="pw1" name="pw1" class="form-control" type="{{passwordString1}}" ng-model="item.hash"
+                <input id="pw1" name="pw1" class="form-control" type="{{passwordString1}}" ng-model="ctrl.item.hash"
                        ng-init="passwordString1='password'" ng-required=""/>
                 <a type="button" class="btn btn-success btn-eye" style="background:#800000;"
                    ng-click="passwordString1==='text'?passwordString1='password':passwordString1='text';errorString='*'+pw1+'*';">
@@ -44,28 +44,28 @@
         <!-- EMAIL -->
         <div class="form-group " ng-class="{ 'has-error' : userForm.email1.$invalid && !userForm.email1.$pristine }">
             <label class="required" for="email1">Email<span class="form-required">*</span>:</label>
-            <input id="email1" name="email1" class="form-control" type="email" ng-model="item.em_main" required>
+            <input id="email1" name="email1" class="form-control" type="email" ng-model="ctrl.item.em_main" required>
             <p ng-show="userForm.email1.$invalid && !userForm.email1.$pristine" class="help-block">Enter a valid
                 email.</p>
         </div>
         <!-- FIRSTNAME -->
         <div class="form-group" ng-class="{ 'has-error' : userForm.fname.$invalid && !userForm.fname.$pristine }">
             <label for="fname" class="required">First Name<span class="form-required">*</span>:</label>
-            <input id="fname" name="fname" class="form-control" type="text" ng-model="item.fname">
+            <input id="fname" name="fname" class="form-control" type="text" ng-model="ctrl.item.fname">
             <p ng-show="userForm.fname.$invalid && !userForm.fname.$pristine" class="help-block">Your first name is
                 required.</p>
         </div>
         <!-- LASTNAME -->
         <div class="form-group" ng-class="{ 'has-error' : userForm.sname.$invalid && !userForm.sname.$pristine }">
             <label for="sname" class="required">Last Name<span class="form-required">*</span>:</label>
-            <input id="sname" name="sname" class="form-control" type="text" ng-model="item.sname">
+            <input id="sname" name="sname" class="form-control" type="text" ng-model="ctrl.item.sname">
             <p ng-show="userForm.sname.$invalid && !userForm.sname.$pristine" class="help-block">Your last name is
                 required.</p>
         </div>
         <!--PHONE-->
         <div class="form-group" ng-class="{ 'has-error' : userForm.phone.$invalid && !userForm.phone.$pristine }">
             <label for="phone" class="required">Phone<span class="form-required">*</span>:</label>
-            <input id="phone" name="phone" class="form-control" type="number" ng-model="item.phone" ng-minlength="5"
+            <input id="phone" name="phone" class="form-control" type="number" ng-model="ctrl.item.phone" ng-minlength="5"
                    ng-maxlength="10">
             <p ng-show="userForm.phone.$invalid && !userForm.phone.$pristine" class="help-block">Your phone is
                 required.Look out the lenght!</p>
@@ -73,14 +73,14 @@
         <!--COMMENTS-->
         <div class="form-group">
             <label for="comments">Comments:</label>
-            <textarea id="comments" name="comments" class="form-control" ng-model="item.comments"></textarea>
+            <textarea id="comments" name="comments" class="form-control" ng-model="ctrl.item.comments"></textarea>
         </div>
 
-        <button type="button" class="btn btn-primary" ng-click="updateUser(item)" style="padding: 5px"
+        <button type="button" class="btn btn-primary" ng-click="ctrl.update(ctrl.item)" style="padding: 5px"
                 ng-if="item.id>0">Ανανέωση
         </button>
 
-        <button type="button" class="btn btn-primary" ng-click="saveUser(item)" style="padding: 5px"
+        <button type="button" class="btn btn-primary" ng-click="ctrl.save(ctrl.item)" style="padding: 5px"
                 ng-if="item.fname && item.sname && !item.id">Αποθήκευση
         </button>
     </form>
