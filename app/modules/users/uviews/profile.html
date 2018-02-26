@@ -77,11 +77,11 @@
         </div>
 
         <button type="button" class="btn btn-primary" ng-click="ctrl.update(ctrl.item)" style="padding: 5px"
-                ng-if="item.id>0">Ανανέωση
+                ng-if="ctrl.item.id>0">Ανανέωση
         </button>
 
         <button type="button" class="btn btn-primary" ng-click="ctrl.save(ctrl.item)" style="padding: 5px"
-                ng-if="item.fname && item.sname && !item.id">Αποθήκευση
+                ng-if="ctrl.item.fname && ctrl.item.sname && !ctrl.item.id">Αποθήκευση
         </button>
     </form>
 </div>

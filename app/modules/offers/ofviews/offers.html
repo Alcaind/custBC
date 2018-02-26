@@ -42,6 +42,11 @@
                         <span class="sortorder" ng-show="propertyName === 'to_tm'"
                               ng-class="{reverse: reverse}"></span>
                     </th>
+                    <th>
+                        <button class="btn btn-link" ng-click="sortBy('comp_id')">Company</button>
+                        <span class="sortorder" ng-show="propertyName === 'comp_id'"
+                              ng-class="{reverse: reverse}"></span>
+                    </th>
 
                     <th>...</th>
                 </tr>
@@ -53,6 +58,7 @@
                     <td>{{ offer.comments}}</td>
                     <td>{{ offer.from_tm}}</td>
                     <td>{{ offer.to_tm}}</td>
+                    <td>{{ offers.company.name}}</td>
                     <td>
                         <a href="#/offers/{{offer.id}}" type="button" class="btn btn-info thumb"><span
                                 class="glyphicon glyphicon-pencil"></span></a>

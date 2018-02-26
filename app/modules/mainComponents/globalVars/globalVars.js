@@ -123,7 +123,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
 
         ctrl.update = function (item) {
             api.apiCall('PUT', ctrl.baseURL + "/" + item.id, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'User Updated', 1);
+                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'ITEM Updated', 1);
                 history.back();
             }, undefined, item)
         };

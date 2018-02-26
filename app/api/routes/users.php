@@ -16,13 +16,12 @@ $app->get('/users', function (Request $request, Response $response) {
     $users = \App\Models\Users::all();
     return $response->getBody()->write($users->toJson());
 });
-/*
 
 $app->get('/users/{id}', function (Request $request, Response $response, $args) {
     header("Content-Type: application/json");
     $id = $args['id'];
     try {
-        $users = \App\Models\Users::with(['tm:id,title,descr', 'ucategories:id,descr'])->find($id);
+        $users = \App\Models\Users::with([])->find($id);
     } catch (\Exception $e) {
         // do task when error
         return $response->withStatus(404)->getBody()->write($e->getMessage());
@@ -35,14 +34,10 @@ $app->post('/users', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
     try {
         $users = new \App\Models\Users();
-        $users->tm_id = $data['tm_id'];
         $users->fname = $data['fname'];
         $users->sname = $data['sname'];
         $users->phone = $data['phone'];
-        $users->em_main = $data['em_main'];
-        $users->em_sec = $data['em_sec'];
-        $users->em_pant = $data['em_pant'];
-        $users->cat_id = $data['cat_id'];
+        $users->email = $data['email'];
         $users->comments = $data['comments'];
         $users->user = $data['user'];
         $users->hash = password_hash($data['hash'], PASSWORD_DEFAULT);
@@ -82,14 +77,10 @@ $app->put('/users/{id}', function ($request, $response, $args) {
     print_r($data);
     try {
         $users = \App\Models\Users::find($id);
-        $users->tm_id = $data['tm_id'] ?: $users->tm_id;
         $users->fname = $data['fname'] ?: $users->fname;
         $users->sname = $data['sname'] ?: $users->sname;
         $users->phone = $data['phone'] ?: $users->phone;
-        $users->em_main = $data['em_main'] ?: $users->em_main;
-        $users->em_sec = $data['em_sec'] ?: $users->em_sec;
-        $users->em_pant = $data['em_pant'] ?: $users->em_pant;
-        $users->cat_id = $data['cat_id'] ?: $users->cat_id;
+        $users->email = $data['email'] ?: $users->email;
         $users->comments = $data['comments'] ?: $users->comments;
         $users->user = $data['user'] ?: $users->user;
         $users->hash = $data['hash'] ?: $users->hash;
@@ -100,7 +91,7 @@ $app->put('/users/{id}', function ($request, $response, $args) {
     return $response->getBody()->write($users->toJson());
 });
 
-$app->post('/users/{id}/roles/{rid}', function ($request, $response, $args) {
+/*$app->post('/users/{id}/roles/{rid}', function ($request, $response, $args) {
     $id = $args['id'];
     $rid = $args['rid'];
     $data = $request->getParsedBody();

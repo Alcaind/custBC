@@ -8,16 +8,11 @@ angular.module('Users', [
     'GlobalVarsSrvs'
 ])
     .controller('UsersController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'globalVarsSrv', 'makeController', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService, globalVarsSrv, makeController) {
-
-        AuthenticationService.CheckCredentials();
-
         $scope.ctrl = makeController.mainController('/users', 'usersTableConf');
         $scope.ctrl.init();
     }])
 
-    .controller('UserProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', 'makeController', 'GlobalVarsSrvs', function ($scope, $routeParams, api, MakeModal, AuthenticationService, makeController, globalVarsSrv) {
-        AuthenticationService.CheckCredentials();
-
+    .controller('UserProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, $routeParams, api, MakeModal, AuthenticationService, makeController, globalVarsSrv) {
         $scope.ctrl = makeController.profileController('/users', 'usersTableConf');
         $scope.ctrl.init();
     }])

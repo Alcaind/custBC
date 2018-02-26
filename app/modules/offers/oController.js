@@ -8,16 +8,11 @@ angular.module('Offers', [
     'GlobalVarsSrvs'
 ])
     .controller('OffersController', ['$scope', 'MakeModal', '$http', 'api', 'orderByFilter', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, MakeModal, $http, api, orderBy, AuthenticationService, makeController, globalVarsSrv) {
-
-        AuthenticationService.CheckCredentials();
-
         $scope.ctrl = makeController.mainController('/offers', 'offersTableConf');
         $scope.ctrl.init();
     }])
 
     .controller('OfferProfileController', ['$scope', '$routeParams', 'api', 'MakeModal', 'AuthenticationService', 'makeController', 'globalVarsSrv', function ($scope, $routeParams, api, MakeModal, AuthenticationService,  makeController, globalVarsSrv) {
-        AuthenticationService.CheckCredentials();
-
         $scope.ctrl = makeController.profileController('/offers', 'offersTableConf');
         $scope.ctrl.init();
 

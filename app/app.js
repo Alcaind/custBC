@@ -81,16 +81,16 @@ angular.module('crSystem', [
             title: 'user create',
             template: '<users-profile></users-profile>'
         })
-        .when('/users/:userId', {
+        .when('/users/:id', {
             title: 'user',
             template: '<users-profile></users-profile>'
         })
-        .when('/users/:userId/requests', {
+        .when('/users/:id/requests', {
             title: 'user request',
             controller: 'URequestsController',
             templateUrl: 'modules/users/uviews/urequest.html'
         })
-        .when('/users/:userId/roles', {
+        .when('/users/:id/roles', {
             title: 'user role',
             controller: 'URolesController',
             templateUrl: 'modules/users/uviews/urole.html'
@@ -108,7 +108,7 @@ angular.module('crSystem', [
             title: 'offers',
             template: '<offers-profile></offers-profile>'
         })
-        .when('/offers/:offerId/usages', {
+        .when('/offers/:id/usages', {
             title: 'user request',
             controller: 'OffersUsagesController',
             templateUrl: 'modules/offers/ofviews/UCoffer.html'
@@ -122,18 +122,18 @@ angular.module('crSystem', [
             title: 'company create',
             template: '<company-profile></company-profile>'
         })
-        .when('/company/:companyId', {
+        .when('/company/:id', {
             title: 'company',
             template: '<company-profile></company-profile>'
         })
-        .when('/company/:companyId/usages', {
+        .when('/company/:id/usages', {
             title: 'user request',
             controller: 'CompanyUsagesController',
             templateUrl: 'modules/company/coviews/UCoffer.html'
         })
+        .otherwise({ redirectTo: '/login' });
 
-
-
+        $locationProvider.hashPrefix('');
 
         /*.when('/', {
             controller: 'HomeController',
@@ -143,7 +143,7 @@ angular.module('crSystem', [
             controller: 'HomeController',
             templateUrl: 'modules/home/views/home.html'
         })*/
-        .otherwise({ redirectTo: '/login' });
+
         /*$locationProvider.html5Mode({
             enabled: true,
             requireBase: false
@@ -177,7 +177,7 @@ angular.module('crSystem', [
                     return null;
                 }
                 if (options.url.indexOf("refresh-token") > -1) {
-                    return null
+                    return null;
                 }
 
                 if (refreshPromise) {
@@ -237,8 +237,9 @@ angular.module('crSystem', [
     .controller('Controller', ['jwtHelper','store',function Controller(jwtHelper, store) {
 
     }])
-    .run(['$rootScope', '$location', '$cookieStore', '$http', 'globalVarsSrv',
-        function ($rootScope, $location, $cookieStore, $http, globalVarsSrv) {
+    .run(['$rootScope', '$location', '$cookieStore', '$http', 'globalVarsSrv', 'AuthenticationService',
+        function ($rootScope, $location, $cookieStore, $http, globalVarsSrv, AuthenticationService) {
+            AuthenticationService.CheckCredentials();
             globalVarsSrv.initFromFile('config/appConfig.json');
 
         }])
