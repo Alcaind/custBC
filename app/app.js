@@ -108,11 +108,16 @@ angular.module('crSystem', [
             title: 'offers',
             template: '<offers-profile></offers-profile>'
         })
-        .when('/offers/:id/usages', {
+        .when('/offers/:id/company', {
+            title: 'user request',
+            controller: 'OfCompController',
+            templateUrl: 'modules/offers/ofviews/ofcomp.html'
+        })
+        /*.when('/offers/:id/usages', {
             title: 'user request',
             controller: 'OffersUsagesController',
             templateUrl: 'modules/offers/ofviews/UCoffer.html'
-        })
+        })*/
         .when('/company', {
             title: 'company',
             controller: 'CompanyController',

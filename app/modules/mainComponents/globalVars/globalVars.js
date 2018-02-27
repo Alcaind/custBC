@@ -1,8 +1,8 @@
 'use strict';
 
-var globalVars = angular.module('GlobalVarsSrvs', ['ApiModules', 'MainComponents']);
+var globalVars = angular.module('GlobalVarsSrvs', ['ApiModules', 'ngCookies', 'MainComponents']);
 
-globalVars.factory('globalVarsSrv', ['$http', function ($http) {
+globalVars.factory('globalVarsSrv', ['$http', '$cookies', '$window', function ($http, $cookies, $window) {
     var globalVariables = {};
 
     function getGlobalVar(gVar) {
@@ -34,12 +34,29 @@ globalVars.factory('globalVarsSrv', ['$http', function ($http) {
             });
     }
 
+    function cookieSave() {
+        $window.localStorage['appConf' + getGlobalVar('auth')['username']] = JSON.stringify(globalVariables);
+    }
+
+    function cookieGet(usr) {
+        var appConf = $window.localStorage['appConf' + usr];
+        globalVariables = appConf ? JSON.parse(appConf) : null;
+        return globalVariables;
+    }
+
+    function appInit(fName, usr) {
+        if (!cookieGet(usr)) initFromFile(fName);
+    }
+
     var glbSrv = {
         'getGlobalVar': getGlobalVar,
         'setGlobalVar': setGlobalVar,
         'removeGlobalVar': removeGlobalVar,
         'setGlobal': setGlobal,
-        'initFromFile': initFromFile
+        'initFromFile': initFromFile,
+        'appInit': appInit,
+        'cookieGet': cookieGet,
+        'cookieSave': cookieSave
     };
     return glbSrv;
 }]);
@@ -47,12 +64,13 @@ globalVars.factory('globalVarsSrv', ['$http', function ($http) {
 globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '$routeParams', 'MakeModal', function (globalVarsSrv, api, orderBy, $routeParams, MakeModal) {
     var makeController = {};
 
-    function mainController(url, table) {
+    function mainController(url, table, title) {
         var ctrl = {
             dp: [],
             baseURL: globalVarsSrv.getGlobalVar('appUrl') + url,
             totalRows: 0,
-            tableColumns: globalVarsSrv.getGlobalVar(table)
+            tableColumns: globalVarsSrv.getGlobalVar(table),
+            title: title
         };
 
         ctrl.getAll = function () {
@@ -95,50 +113,15 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
         return ctrl;
     }
 
-    function profileController(url, table) {
-        var ctrl = {
-            item: {},
-            baseURL: globalVarsSrv.getGlobalVar('appUrl') + url,
-            tableColumns: globalVarsSrv.getGlobalVar(table)
-        };
-
-        ctrl.init = function(){
-            if (!$routeParams.id) {
-                ctrl.tableColumns.map(function (tableColumn) {
-                    ctrl.item[tableColumn.column] = '';
-                });
-            }else{
-                api.apiCall('GET', ctrl.baseURL + "/" + $routeParams.id, function (results) {
-                    ctrl.item = results.data;
-                });
-            }
-        }
-
-        ctrl.save = function (item) {
-            api.apiCall('POST', ctrl.baseURL, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'NEW Item Created', 1);
-                history.back();
-            }, undefined, item)
-        };
-
-        ctrl.update = function (item) {
-            api.apiCall('PUT', ctrl.baseURL + "/" + item.id, function (results) {
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'ITEM Updated', 1);
-                history.back();
-            }, undefined, item)
-        };
-
-        return ctrl;
-    }
-
-    function n2nController(url, table) {
+    function n2nController(url, table, pivotTable) {
         var ctrl = {
             ldp: [],
             rdp: [],
             lLength: 0,
             rLength: 0,
-            pivotData: {},
-            //currentRight : {},
+            pivotData: null,
+            pivotTable: pivotTable,
+            currentRight: {},
             baseURL: globalVarsSrv.getGlobalVar('appUrl') + url,
             mainData: {}
         };
@@ -146,7 +129,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
         ctrl.init = function () {
             ctrl.getMain();
             ctrl.getLeft();
-            ctrl.getRight()
+            ctrl.getRight();
         };
 
         ctrl.getMain = function () {
@@ -182,6 +165,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
         };
 
         ctrl.showPivotData = function (role) {
+            ctrl.pivotData = Object.assign({}, ctrl.pivotTable); //ctrl.pivotTable;
             ctrl.state = 0;
             ctrl.currentRight = role;
         };
@@ -189,17 +173,70 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
         ctrl.deleteData = function (id) {
             api.apiCall('DELETE', ctrl.baseURL + "/" + $routeParams.id + '/' + table + '/' + id, function (results) {
                 ctrl.ldp = results.data;
-                ctrl.compare(ldp, rdp);
+                ctrl.compare(ctrl.ldp, ctrl.rdp);
             }, undefined, id);
         };
 
         ctrl.compare = function (sdp, cdp) {
-            for (var i = 0; i < sdp.length; i++) {
-                sdp[i].disabled = false;
-                for (var j = 0; j < cdp.length; j++)
-                    if (angular.equals(cdp[j].id, sdp[i].id))
-                        sdp[i].disabled = true;
+            for (var i = 0; i < cdp.length; i++) {
+                cdp[i].disabled = false;
+                for (var j = 0; j < sdp.length; j++)
+                    if (angular.equals(cdp[i].id, sdp[j].id))
+                        cdp[i].disabled = true;
             }
+        };
+
+
+        ctrl.cancelPivotData = function () {
+            ctrl.pivotData = null;
+            ctrl.currentRight = null;
+        };
+
+        ctrl.insertPivotItem = function (currentRight) {
+            var method = "PUT";
+            if (ctrl.state === 0) method = "POST";
+            api.apiCall(method, ctrl.baseURL + "/" + $routeParams.id + '/' + table + '/' + currentRight.id, function (results) {
+                ctrl.pivotData = {comment: '', exp_dt: '', status: '1'};
+                ctrl.ldp = results.data;
+                ctrl.compare();
+                ctrl.cancelPivotData();
+            }, undefined, ctrl.pivotData, undefined, ctrl);
+        };
+
+        return ctrl;
+    }
+
+    function profileController(url, table) {
+        var ctrl = {
+            item: {},
+            baseURL: globalVarsSrv.getGlobalVar('appUrl') + url,
+            tableColumns: globalVarsSrv.getGlobalVar(table)
+        };
+
+        ctrl.init = function () {
+            if (!$routeParams.id) {
+                ctrl.tableColumns.map(function (tableColumn) {
+                    ctrl.item[tableColumn.column] = '';
+                });
+            } else {
+                api.apiCall('GET', ctrl.baseURL + "/" + $routeParams.id, function (results) {
+                    ctrl.item = results.data;
+                });
+            }
+        };
+
+        ctrl.save = function (item) {
+            api.apiCall('POST', ctrl.baseURL, function (results) {
+                MakeModal.generalInfoModal('sm', 'Info', 'Info', 'Δημιουργήθηκε νέα εγγραφή.', 1);
+                history.back();
+            }, undefined, item)
+        };
+
+        ctrl.update = function (item) {
+            api.apiCall('PUT', ctrl.baseURL + "/" + item.id, function (results) {
+                MakeModal.generalInfoModal('sm', 'Info', 'Η εγγραφή ανανεώθηκε.', 1);
+                history.back();
+            }, undefined, item)
         };
 
         return ctrl;
@@ -207,9 +244,10 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
 
     makeController = {
         mainController: mainController,
-        profileController: profileController,
-        n2nController: n2nController
+        n2nController: n2nController,
+        profileController: profileController
     };
 
     return makeController;
+
 }]);

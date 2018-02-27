@@ -15,6 +15,11 @@ class Company extends Model {
 
     protected $table = 'company';
 
+    public function offers()
+    {
+        return $this->belongsToMany('\\App\\Models\\Offers', 'offer_company', 'comp_id', 'offer_id');
+    }
+
     /*public function roles()
     {
         return $this->belongsToMany('\\App\\Models\\Roles', 'users_roles', 'user_id', 'role_id')->withPivot('comment', 'exp_dt', 'dt', 'status');

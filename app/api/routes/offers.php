@@ -13,7 +13,7 @@ use \App\Models\ApiError as ApiError;
 
 $app->get('/offers', function (Request $request, Response $response) {
     header("Content-Type: application/json");
-    $offers = \App\Models\Offers::all();
+    $offers = \App\Models\Offers::with([])->get();
     return $response->getBody()->write($offers->toJson());
 });
 
@@ -78,6 +78,17 @@ $app->delete('/offers/{id}', function ($request, $response, $args) {
     }
     return $response->withStatus(201)->getBody()->write($offers->toJson());
 });
+
+$app->get('/offers/{id}/company', function ($request, $response, $args) {
+    $id = $args['id'];
+    try {
+        $offer = \App\Models\Offers::find($id);
+    } catch (\Exception $e) {
+        return $response->withStatus(404)->getBody()->write($e->getMessage());
+    }
+    return $response->getBody()->write($offer->company()->get()->toJson());
+});
+
 
 /*
 $app->get('/users/{id}', function (Request $request, Response $response, $args) {
