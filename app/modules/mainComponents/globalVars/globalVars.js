@@ -114,6 +114,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
     }
 
     function n2nController(url, table, pivotTable) {
+
         var ctrl = {
             ldp: [],
             rdp: [],
@@ -174,6 +175,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
             api.apiCall('DELETE', ctrl.baseURL + "/" + $routeParams.id + '/' + table + '/' + id, function (results) {
                 ctrl.ldp = results.data;
                 ctrl.compare(ctrl.ldp, ctrl.rdp);
+                MakeModal.generalInfoModal('sm', 'Info', 'info', 'Eπιτυχής διαγραφή', 1);
             }, undefined, id);
         };
 
@@ -191,15 +193,16 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
             ctrl.currentRight = null;
         };
 
-        ctrl.insertPivotItem = function (currentRight) {
+        ctrl.insertPivotItem = function (data) {
             var method = "PUT";
             if (ctrl.state === 0) method = "POST";
-            api.apiCall(method, ctrl.baseURL + "/" + $routeParams.id + '/' + table + '/' + currentRight.id, function (results) {
-                ctrl.pivotData = {comment: '', exp_dt: '', status: '1'};
+            api.apiCall(method, ctrl.baseURL + "/" + $routeParams.id + '/' + table + '/' + ctrl.currentRight.id, function (results) {
+                data = {comment: '', status: '1'};
                 ctrl.ldp = results.data;
-                ctrl.compare();
+                ctrl.compare(ctrl.ldp, ctrl.rdp);
                 ctrl.cancelPivotData();
-            }, undefined, ctrl.pivotData, undefined, ctrl);
+                MakeModal.generalInfoModal('sm', 'Info', 'Info', ctrl.state === 0?'Δημηουργήθηκε νέα εγγραφή.':'Η εγγραφή ανανεώθηκε.', 1);
+            }, undefined, data);
         };
 
         return ctrl;

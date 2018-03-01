@@ -113,6 +113,36 @@ $app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     return $response->getBody()->write($offer->company()->get()->toJson());
 });
 
+$app->post('/offers/{id}/company/{cid}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $cid = $args['cid'];
+    $data = $request->getParsedBody();
+    try {
+        $offer = \App\Models\Offers::find($id);
+        $offer->company()->attach($cid, $data);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($offer->company()->get()->toJson());
+});
+
+$app->delete('/offers/{id}/company/{cid}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $cid = $args['cid'];
+    try{
+        $offer = \App\Models\Offers::find($id);
+        $offer->company()->detach($cid);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($offer->company()->get()->toJson());
+});
 
 /*
 $app->get('/users/{id}', function (Request $request, Response $response, $args) {

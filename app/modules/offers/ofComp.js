@@ -5,6 +5,12 @@ angular.module('Offers')
     .controller('OfCompController', ['$scope', 'makeController', function ($scope, makeController) {
         $scope.ctrl = makeController.n2nController('/offers','company',{});
         $scope.ctrl.init();
+
+        $scope.sayHello = function ()`` {
+            console.log("hello !!");
+        }
+
+        $sacope.sayHello();
     }])
 
     .directive('leftTable', function () {
