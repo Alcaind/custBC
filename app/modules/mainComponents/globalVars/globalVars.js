@@ -186,7 +186,6 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
             }
         };
 
-
         ctrl.cancelPivotData = function () {
             ctrl.pivotData = null;
             ctrl.currentRight = null;

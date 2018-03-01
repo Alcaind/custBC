@@ -42,8 +42,11 @@ $app->put('/offers/{id}', function ($request, $response, $args) {
         $offers->promo = $data['promo'] ?: $offers->promo;
         $offers->to_tm = $data['to_tm'] ?: $offers->to_tm;
         $offers->save();
-    } catch (\Exception $e) {
-        return $response->withStatus(404)->getBody()->write($e->getMessage());
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
     }
     return $response->getBody()->write($offers->toJson());
 });
@@ -72,9 +75,11 @@ $app->delete('/offers/{id}', function ($request, $response, $args) {
     try {
         $offers= \App\Models\Offers::find($id);
         $offers->delete();
-    } catch (\Exception $e) {
-        // do task when error
-        return $response->withStatus(404)->getBody()->write($e->getMessage());
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
     }
     return $response->withStatus(201)->getBody()->write($offers->toJson());
 });
@@ -83,8 +88,27 @@ $app->get('/offers/{id}/company', function ($request, $response, $args) {
     $id = $args['id'];
     try {
         $offer = \App\Models\Offers::find($id);
-    } catch (\Exception $e) {
-        return $response->withStatus(404)->getBody()->write($e->getMessage());
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($offer->company()->get()->toJson());
+});
+
+$app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $cid = $args['cid'];
+    $data = $request->getParsedBody();
+    try {
+        $offer = \App\Models\Offers::find($id);
+        $offer->company()->updateExistingPivot($cid, $data);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
     }
     return $response->getBody()->write($offer->company()->get()->toJson());
 });
