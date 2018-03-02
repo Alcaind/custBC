@@ -20,6 +20,11 @@ class Offers extends Model {
         return $this->belongsToMany('\\App\\Models\\Company', 'offer_company', 'offer_id', 'comp_id')->withPivot('comment', 'status');
     }
 
+    public function hotSpot()
+    {
+        return $this->belongsToMany('\\App\\Models\\HotSpots', 'offer_hs', 'offer_id', 'hs_id')->withPivot('comment', 'status');
+    }
+
     /*public function roles()
     {
         return $this->belongsToMany('\\App\\Models\\Roles', 'users_roles', 'user_id', 'role_id')->withPivot('comment', 'exp_dt', 'dt', 'status');

@@ -201,7 +201,7 @@ globalVars.factory('makeController', ['globalVarsSrv', 'api', 'orderByFilter', '
                 ctrl.ldp = results.data;
                 ctrl.compare(ctrl.ldp, ctrl.rdp);
                 ctrl.cancelPivotData();
-                MakeModal.generalInfoModal('sm', 'Info', 'Info', ctrl.state === 0?'Δημηουργήθηκε νέα εγγραφή.':'Η εγγραφή ανανεώθηκε.', 1);
+                MakeModal.generalInfoModal('sm', 'Info', 'Info', ctrl.state === 0?'Δημιουργήθηκε νέα εγγραφή.':'Η εγγραφή ανανεώθηκε.', 1);
             }, undefined, data);
         };
 

@@ -16,6 +16,8 @@ require __DIR__ . '/../src/models/ucategories.php';
 require __DIR__ . '/../src/models/company.php';
 
 require __DIR__ . '/../src/models/offers.php';
+require __DIR__ . '/../src/models/hotSpots.php';
+
 
 //require __DIR__ . '../src/models/Users.php';
 //require __DIR__ . '../src/models/Roles.php';
@@ -68,4 +70,5 @@ require __DIR__ . '/../routes/roles.php';
 require __DIR__ . '/../routes/ucategories.php';
 require __DIR__ . '/../routes/offers.php';
 require __DIR__ . '/../routes/company.php';
+require __DIR__ . '/../routes/hs.php';
 
