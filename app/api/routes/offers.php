@@ -97,6 +97,19 @@ $app->get('/offers/{id}/company', function ($request, $response, $args) {
     return $response->getBody()->write($offer->company()->get()->toJson());
 });
 
+$app->get('/offers/{id}/hot_spots', function ($request, $response, $args) {
+    $id = $args['id'];
+    try {
+        $offer = \App\Models\Offers::find($id);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($offer->hotSpot()->get()->toJson());
+});
+
 $app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     $id = $args['id'];
     $cid = $args['cid'];
@@ -111,6 +124,22 @@ $app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
         return $nr->write($error->toJson());
     }
     return $response->getBody()->write($offer->company()->get()->toJson());
+});
+
+$app->put('/offers/{id}/hot_spots/{hid}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $hid = $args['hid'];
+    $data = $request->getParsedBody();
+    try {
+        $hs = \App\Models\Offers::find($id);
+        $hs->hotSpot()->updateExistingPivot($hid, $data);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($hs->hotSpot()->get()->toJson());
 });
 
 $app->post('/offers/{id}/company/{cid}', function ($request, $response, $args) {
@@ -129,10 +158,26 @@ $app->post('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     return $response->getBody()->write($offer->company()->get()->toJson());
 });
 
+$app->post('/offers/{id}/hot_spots/{hid}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $hid = $args['hid'];
+    $data = $request->getParsedBody();
+    try {
+        $hs = \App\Models\Offers::find($id);
+        $hs->hotSpot()->attach($hid, $data);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($hs->hotSpot()->get()->toJson());
+});
+
 $app->delete('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     $id = $args['id'];
     $cid = $args['cid'];
-    try{
+    try {
         $offer = \App\Models\Offers::find($id);
         $offer->company()->detach($cid);
     } catch (PDOException $e) {
@@ -142,6 +187,21 @@ $app->delete('/offers/{id}/company/{cid}', function ($request, $response, $args)
         return $nr->write($error->toJson());
     }
     return $response->getBody()->write($offer->company()->get()->toJson());
+});
+
+$app->delete('/offers/{id}/hot_spots/{hid}', function ($request, $response, $args) {
+    $id = $args['id'];
+    $hid = $args['hid'];
+    try {
+        $hs = \App\Models\Offers::find($id);
+        $hs->hotSpot()->detach($hid);
+    } catch (PDOException $e) {
+        $nr = $response->withStatus(404);
+        $error = new ApiError();
+        $error->setData($e->getCode(), $e->getMessage());
+        return $nr->write($error->toJson());
+    }
+    return $response->getBody()->write($hs->hotSpot()->get()->toJson());
 });
 
 /*

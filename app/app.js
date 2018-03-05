@@ -118,11 +118,6 @@ angular.module('crSystem', [
             controller: 'OhsController',
             templateUrl: 'modules/offers/ofviews/ohs.html'
         })
-        /*.when('/offers/:id/company', {
-            title: 'user request',
-            controller: 'OfCompController',
-            templateUrl: 'modules/offers/ofviews/ofcomp.html'
-        })*/
         /*.when('/offers/:id/usages', {
             title: 'user request',
             controller: 'OffersUsagesController',

@@ -66,7 +66,7 @@ angular.module('MainComponents', [
         return {
             restrict: "EA",
             templateUrl: 'modules/mainComponents/views/footer.html'
-        }
+        };
     })
     .factory("MakeModal", ['$uibModal', function ($uibModal) {
         var factory = {};
