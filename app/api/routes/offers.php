@@ -97,19 +97,6 @@ $app->get('/offers/{id}/company', function ($request, $response, $args) {
     return $response->getBody()->write($offer->company()->get()->toJson());
 });
 
-/*$app->get('/offers/{id}/hot_spots', function ($request, $response, $args) {
-    $id = $args['id'];
-    try {
-        $offer = \App\Models\Offers::find($id);
-    } catch (PDOException $e) {
-        $nr = $response->withStatus(404);
-        $error = new ApiError();
-        $error->setData($e->getCode(), $e->getMessage());
-        return $nr->write($error->toJson());
-    }
-    return $response->getBody()->write($offer->hotSpot()->get()->toJson());
-});*/
-
 $app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     $id = $args['id'];
     $cid = $args['cid'];
@@ -126,7 +113,7 @@ $app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     return $response->getBody()->write($offer->company()->get()->toJson());
 });
 
-/*$app->post('/offers/{id}/hot_spot/{cid}', function ($request, $response, $args) {
+$app->post('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     $id = $args['id'];
     $cid = $args['cid'];
     $data = $request->getParsedBody();
@@ -140,7 +127,7 @@ $app->put('/offers/{id}/company/{cid}', function ($request, $response, $args) {
         return $nr->write($error->toJson());
     }
     return $response->getBody()->write($offer->company()->get()->toJson());
-});*/
+});
 
 $app->delete('/offers/{id}/company/{cid}', function ($request, $response, $args) {
     $id = $args['id'];

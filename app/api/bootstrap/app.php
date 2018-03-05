@@ -70,5 +70,5 @@ require __DIR__ . '/../routes/roles.php';
 require __DIR__ . '/../routes/ucategories.php';
 require __DIR__ . '/../routes/offers.php';
 require __DIR__ . '/../routes/company.php';
-require __DIR__ . '/../routes/hs.php';
+
 
