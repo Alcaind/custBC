@@ -141,6 +141,11 @@ angular.module('crSystem', [
             controller: 'CompanyUsagesController',
             templateUrl: 'modules/company/coviews/UCoffer.html'
         })
+        .when('/company/:id/offers', {
+            title: 'user request',
+            controller: 'CompOfController',
+            templateUrl: 'modules/company/coviews/compof.html'
+        })
         .otherwise({ redirectTo: '/login' });
 
         $locationProvider.hashPrefix('');
